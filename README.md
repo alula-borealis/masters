@@ -6,7 +6,6 @@ Compendulum of Master's project code for looking at the scattering of gravitatio
 ## Table of Contents
 * [Introduction](#introduction)
 * [Technologies](#technologies)
-* [Setup](#setup)
 * [Features](#features)
 * [To Do](#to-do)
 - [Results](#results)
@@ -31,9 +30,6 @@ This project is aiming to investigate the nature of how gravitational waves scat
   - GSL
 - **Bash-5.1**
 
-## Setup
-May not need this - an explanation on how to run the code
-
 ## Features
 - Scalar wave backscattering cone in 2D *(Python)*
 - Scalar wave backscattering cone in 3D *(Python)*
@@ -47,6 +43,9 @@ May not need this - an explanation on how to run the code
 ### Gravitational waves
 
 ## Project Status
+Starting to implement the multiple scattering theory of vector waves into code in order to visualise the coherent backscattering cone for vector waves.
+
+Rewriting the 3D scalar waves code in C in order to get an improvement in speed.
 
 ## Sources
 
