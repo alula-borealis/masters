@@ -55,23 +55,23 @@ double green_function(double r1[n][3], double r2[n][3])
 	int i, j;
 	gsl_matrix * m = gsl_matrix_alloc (n,n);
 	
-	double r, g;
-	r = r1 - r2;
-
-	if (r == 0.0)
-	{
-		g = 1.0;
-	}
-	else
-	{
-		g = exp(1*I*2*M_PI*r)/(4*M_PI*r);
-	}
-
+	double r[n], g[n];
 	for (i = 0; i < n; i++)
 	{
 		for (j = 0; j < n; j++)
-		{
-			gsl_matrix_set (m, i, j, g);
+		{	
+			r[n] = sqrt((r1[i][1]-r2[j][1])*(r1[i][1]-r2[j][1]) + (r1[i][2]-r2[j][2])*(r1[i][2]-r2[j][2]) + (r1[i][3] - r2[j][3])*(r1[i][3] - r2[j][3]));
+
+			if (r[n] == 0.0)
+			{
+				g[n] = 1.0;
+			}
+			else
+			{
+				g[n] = exp(1*I*2*M_PI*r[n])/(4*M_PI*r[n]);
+			}
+
+			gsl_matrix_set (m, i, j, g[n]);
 		}
 	}
 	
