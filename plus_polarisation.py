@@ -43,7 +43,5 @@ def animate(i):
     return plot,
 anim = animation.FuncAnimation(figure, animate, init_func=init, frames=framecount, interval=33, blit=False)
 
-#f = "/home/laura/Exeter/Masters/plus_polarisation.gif" 
-#writergif = animation.PillowWriter(fps=30) 
 anim.save("plus_polarisation.gif", writer="imagemagick")
 print("Done!")
