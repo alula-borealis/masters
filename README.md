@@ -9,6 +9,7 @@ Compendulum of Master's project code for looking at the scattering of gravitatio
 * [Features](#features)
 * [To Do](#to-do)
 - [Results](#results)
+  * [Visualisation](#visualisation)
   * [Scalar Waves](#scalar-waves)
   * [Vector Waves](#vector-waves)
   * [Gravitational Waves](#gravitational-waves)
@@ -38,6 +39,7 @@ This project is aiming to investigate the nature of how gravitational waves scat
 - [ ] Rewrite scalar waves in 3D code in C for speed improvement
 
 ## Results
+### Visualisation
 ### Scalar Waves
 ### Vector Waves
 ### Gravitational waves
