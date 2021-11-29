@@ -3,14 +3,10 @@
 #include <math.h>
 #include <time.h>
 #include <complex.h>
-#include <gsl/linalg_complex_LU_decomp>
-#include <gsl/linalg_complex_LU_solve>
+#include <gsl/gsl_linalg.h>
+#include <gsl/gsl_linalg.h>
 
 #define _USE_MATH_DEFINES
-
-
-
-
 
 double incident(double x);
 double green_function(double r1, double r2);
@@ -22,7 +18,7 @@ int main()
 	double scatterers[n][3];
 
 	srand((unsigned)time(NULL));
-	for (i = 0; i < n; i++)
+	for (i = 1; i < n; i++)
 	{
 		x = 20*(double)rand()/RAND_MAX;
 		y = 50*(double)rand()/RAND_MAX;
@@ -32,24 +28,25 @@ int main()
 		scatterers[i][1] = y;
 		scatterers[i][2] = z;
 
-		printf("%lf %lf %lf \n", scatterers[i][0], scatterers[i][1], scatterers[i][2]);
-	}
+		printf("Scatterer %d position: %lf %lf %lf \n", i, scatterers[i][0], scatterers[i][1], scatterers[i][2]);
+	
 
 	double field_scatterer = incident(scatterers[i][0]);
 
-	printf("%lf\n field scatterer: ", field_scatterer);
-
-	double field_decomp = gsl_linalg_LU_decomp(green_function)
+	printf("Incident field at scatterer %d: %lf\n", i, field_scatterer);
+	
+	}
+	//double field_decomp = gsl_linalg_LU_decomp(green_function)
 }
 
 double incident(double x)
 {
 	double E_0 = 1.0;
 
-	return E_0*exp(1*I*2*M_PI*x);
+	return E_0*cexp(1*I*2*M_PI*x);
 }
 
-double green_function(double r1, double r2)
+/*double green_function(double r1, double r2)
 {
 	double r, g;
 	r = r1 - r2;
@@ -60,7 +57,7 @@ double green_function(double r1, double r2)
 	}
 	else
 	{
-		g = exp(1*I*2*M_PI*r)/(4*M_PI*r)
+		g = exp(1*I*2*M_PI*r)/(4*M_PI*r);
 	}
 
-}
+} */
