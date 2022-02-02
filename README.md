@@ -36,7 +36,7 @@ This project is aiming to investigate the nature of how gravitational waves scat
 - Scalar wave backscattering cone in 3D *(Python)*
 
 ## To Do:
-- [ ] Rewrite scalar waves in 3D code in C for speed improvement
+- [ ] Rewrite scalar waves in 3D code in C for speed improvement (in progress)
 
 ## Results
 ### Visualisation

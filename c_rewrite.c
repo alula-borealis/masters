@@ -11,7 +11,7 @@
 // global variables
 int n = 10;
 
-double incident(double x);
+double incident(double x[n][0]);
 double green_function(double r1[n][3], double r2[n][3]);
 
 int main()
@@ -34,20 +34,38 @@ int main()
 		printf("Scatterer %d position: %lf %lf %lf \n", i, scatterers[i][0], scatterers[i][1], scatterers[i][2]);
 	
 
-	double field_scatterer = incident(scatterers[i][0]);
+	//double field_scatterer = incident(scatterers[i][0]);
 
-	printf("Incident field at scatterer %d: %lf\n", i, field_scatterer);
-	
+	//printf("Incident field at scatterer %d: %lf\n", i, field_scatterer);
 	}
+	
+	double field_scatterer[n] = incident(scatterers[n][0]);	
 	double green = green_function(scatterers, scatterers);
-	//double field_decomp = gsl_linalg_LU_decomp(green_function)
+	
+	// solving the matrix equation
+	gsl_vector_view b
+		= gsl_vector_view_array (field_scatterer, n);
+	
+	gsl_vector *total_field = gsl_vector_alloc (n);
+
+	int s;
+	gsl_permutation * p = gsl_permutation_alloc (n);
+	gsl_linalg_LU_decomp (&green.matrix, p, &s);
+	gsl_linalg_LU_solve (&green.matrix, p, &b.vector, total_field);
+	
+	printf("Total field = \n");
+	gsl_vector_fprintf (stdout, total_field, "%g");
+
+	gsl_permutation_free (p);
+
+	return 0;	
 }
 
-double incident(double x)
+double incident(double x[n][0])
 {
 	double E_0 = 1.0;
 
-	return E_0*cexp(1*I*2*M_PI*x);
+	return E_0*cexp(1*I*2*M_PI*x[n]);
 }
 
 double green_function(double r1[n][3], double r2[n][3])
@@ -85,3 +103,4 @@ double green_function(double r1[n][3], double r2[n][3])
 	}
 	gsl_matrix_free (m);
 }
+
