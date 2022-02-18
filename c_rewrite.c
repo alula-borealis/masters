@@ -40,12 +40,13 @@ int main()
 
 	//printf("Incident field at scatterer %d: %lf\n", i, field_scatterer);
 	
-	
+	// fixed below
 		double field_scatterer = incident(scatterers[i][0]);	
 	
 	// solving the matrix equation
 		
 		gsl_matrix_set (mmat, i,i, field_scatterer);
+		// continue rewriting this part
 
 	//	gsl_vector_view b
 	//		= gsl_vector_view_array (field_scatterer, n);
