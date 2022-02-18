@@ -11,7 +11,7 @@
 // global variables
 int n = 10;
 
-double incident(double x[n][0]);
+double incident(double x);
 double green_function(double r1[n][3], double r2[n][3]);
 
 int main()
@@ -19,6 +19,8 @@ int main()
 	int i, j, k;
 	double x, y, z;
 	double scatterers[n][3];
+	
+	gsl_matrix * mmat = gsl_matrix_alloc (n,n);
 
 	srand((unsigned)time(NULL));
 	for (i = 1; i < n; i++)
@@ -37,35 +39,54 @@ int main()
 	//double field_scatterer = incident(scatterers[i][0]);
 
 	//printf("Incident field at scatterer %d: %lf\n", i, field_scatterer);
-	}
 	
-	double field_scatterer[n] = incident(scatterers[n][0]);	
-	double green = green_function(scatterers, scatterers);
+	
+		double field_scatterer = incident(scatterers[i][0]);	
 	
 	// solving the matrix equation
-	gsl_vector_view b
-		= gsl_vector_view_array (field_scatterer, n);
-	
-	gsl_vector *total_field = gsl_vector_alloc (n);
+		
+		gsl_matrix_set (mmat, i,i, field_scatterer);
 
+	//	gsl_vector_view b
+	//		= gsl_vector_view_array (field_scatterer, n);
+	// gsl vector set instead
+			
+	//	gsl_vector *total_field = gsl_vector_alloc (n);
+	}
+	double green = green_function(scatterers, scatterers);
 	int s;
-	gsl_permutation * p = gsl_permutation_alloc (n);
-	gsl_linalg_LU_decomp (&green.matrix, p, &s);
-	gsl_linalg_LU_solve (&green.matrix, p, &b.vector, total_field);
+	//gsl_permutation * p = gsl_permutation_alloc (n);
+	//gsl_linalg_LU_decomp (&green.matrix, p, &s);
+	//gsl_linalg_LU_solve (&green.matrix, p, &b.vector, total_field);
 	
-	printf("Total field = \n");
-	gsl_vector_fprintf (stdout, total_field, "%g");
+	//printf("Total field = \n");
+	//gsl_vector_fprintf (stdout, total_field, "%g");
 
-	gsl_permutation_free (p);
+	//gsl_permutation_free (p);
+
+	// defining surface of sphere
+	double phi[150];
+	double theta[150];
+	int r = 500;
+
+	for (i=(M_PI-2); i < (M_PI+2); i++)
+	{
+		phi[i] =(double)(i)/((M_PI-2) - (M_PI+2));
+
+	}
+	for (i=(M_PI/2 - 2); i < (M_PI/2 +2); i++)
+	{
+		theta[i] = (double)(i)/((M_PI/2 - 2) - (M_PI/2 +2));
+	}
 
 	return 0;	
 }
 
-double incident(double x[n][0])
+double incident(double x)
 {
 	double E_0 = 1.0;
 
-	return E_0*cexp(1*I*2*M_PI*x[n]);
+	return E_0*cexp(1*I*2*M_PI*x);
 }
 
 double green_function(double r1[n][3], double r2[n][3])
